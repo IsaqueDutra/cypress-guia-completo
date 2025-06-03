@@ -1,16 +1,14 @@
 # Resumo de Cypress - Guia Completo
 
 ## :star: Bloco `describe()`
-Usado para **organizar** os testes, agrupando-os por funcionalidade ou página.
+Usado para **organizar** seus testes por funcionalidade ou página.
 
 ```javascript
-describe('CENTRAL DE ATENDIMENTO AO CLIENTE', () => { ... });
+describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => { ... });
 ```
 
----
-
 ## :round_pushpin: `beforeEach()`
-Executa **antes de cada teste (`it()`)**. Ideal para abrir a página antes de cada teste começar.
+Executa antes de cada teste `it()`.
 
 ```javascript
 beforeEach(() => {
@@ -18,27 +16,26 @@ beforeEach(() => {
 });
 ```
 
----
-
-## :test_tube: Tabela de Comandos do Cypress usados
+## :test_tube: Comandos Cypress
 
 | Comando | O que faz | Exemplo |
-|--------|------------|---------|
-| `cy.visit()` | Abre a página no navegador | `cy.visit('src/index.html');` |
-| `cy.title().should()` | Verifica o título da página | `cy.title().should('eq', 'Central de Atendimento...');` |
-| `cy.get().type()` | Seleciona campo e digita | `cy.get('#firstName').type('João');` |
-| `cy.get().type(valor, { delay: tempo })` | Digita simulando tempo | `cy.get('#lastName').type('Silva', { delay: 100 });` |
-| `cy.get().click()` | Clica em botão/elemento | `cy.get('button[type="submit"]').click();` |
-| `cy.contains(tag, texto)` | Seleciona pelo texto | `cy.contains('button', 'Enviar').click();` |
-| `cy.get().should()` | Verifica condição | `cy.get('.success').should('be.visible');` |
-| `.and('contain', texto)` | Complementa verificação | `.and('contain', 'Mensagem enviada com sucesso.');` |
-| `it.only()` / `describe.only()` | Executa apenas o marcado | `it.only('teste', () => { ... });` |
-| `it.skip()` | Ignora teste | `it.skip('teste', () => { ... });` |
-| `Cypress.Commands.add()` | Cria comando personalizado | `Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => { ... });` |
+|--------|-----------|---------|
+| `cy.visit()` | Abre a página | `cy.visit('src/index.html');` |
+| `cy.title().should()` | Verifica título | `cy.title().should('eq', '...');` |
+| `cy.get().type()` | Digita valor | `cy.get('#firstName').type('João');` |
+| `cy.get().type(valor, { delay: tempo })` | Digita com delay | `cy.get('#lastName').type('Silva', { delay: 100 });` |
+| `cy.get().click()` | Clica | `cy.get('button[type="submit"]').click();` |
+| `cy.contains(tag, texto)` | Seleciona por texto | `cy.contains('button', 'Enviar').click();` |
+| `cy.get().should()` | Valida elemento | `cy.get('.success').should('be.visible');` |
+| `.and('contain', texto)` | Complementa validação | `.and('contain', 'Mensagem enviada com sucesso.');` |
+| `cy.get().select(valor)` | Seleciona por texto ou value | `cy.get('#select-plataforma').select('YouTube');` |
+| `cy.get().select([índice])` | Seleciona por índice | `cy.get('#select-plataforma').select([2]);` |
+| `.should('have.value', valor)` | Valida seleção | `cy.get('#select-plataforma').should('have.value', 'youtube');` |
+| `it.only()` / `describe.only()` | Executa apenas aquele teste | `it.only('teste', () => {...});` |
+| `it.skip()` | Ignora o teste | `it.skip('teste', () => {...});` |
+| `Cypress.Commands.add()` | Cria comando customizado | `Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {...});` |
 
----
-
-## :sparkles: Funções personalizadas com `Cypress.Commands.add()`
+## :sparkles: Função personalizada
 
 ```javascript
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
@@ -50,27 +47,30 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
 });
 ```
 
-No teste:
-
-```javascript
-it('envia o formulário', () => {
-  cy.fillMandatoryFieldsAndSubmit();
-  cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
-});
-```
-
----
-
-## :bulb: Exemplo com `cy.contains()`
+## :bulb: `cy.contains()`
 
 ```javascript
 cy.contains('button', 'Enviar').click();
 cy.get('.error').should('be.visible').and('contain', 'Valide os campos obrigatórios!');
 ```
 
----
+## :arrow_down: `select`
 
-## :computer: Exemplo prático completo
+```javascript
+// Por texto
+cy.get('#select-plataforma').select('YouTube');
+
+// Por value
+cy.get('#select-plataforma').select('youtube');
+
+// Por posição
+cy.get('#select-plataforma').select([2]);
+
+// Validar valor selecionado
+cy.get('#select-plataforma').should('have.value', 'youtube');
+```
+
+## :computer: Exemplo prático
 
 ```javascript
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
@@ -97,16 +97,11 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 });
 ```
 
----
-
-## :memo: Dicas Finais
-- Use nomes descritivos nos testes
-- Simule digitação real com `{ delay: 100 }`
-- Use `.only` para testes isolados
-- Use `.skip` para ignorar testes temporariamente
-- Combine `cy.get()` com `cy.contains()` se necessário
-- Crie comandos customizados para deixar o código limpo
+## :bookmark_tabs: Dicas
+- Use nomes claros nos testes
+- Simule digitação com `delay`
+- Use `.only` para testar isoladamente
+- Use `.skip` para ignorar testes
+- Crie comandos reutilizáveis
 
 ---
-
-Bons estudos e pratique bastante! 🚀
