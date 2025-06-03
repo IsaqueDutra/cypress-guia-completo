@@ -11,7 +11,7 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 
   it('preenche os campos obrigatórios e envia o formulário', () => {
     cy.get("#firstName")
-    .type("João");
+      .type("João");
     cy.get('#lastName').type('Silva', { delay: 100 });
     cy.get('#email').type("fake@email.com");
     cy.get('#open-text-area').type("Mensagem de teste");
@@ -21,7 +21,7 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
     cy.get("#firstName")
-    .type("João");
+      .type("João");
     cy.get('#lastName').type('Silva', { delay: 100 });
     cy.get('#email').type("123");
     //cy.get('#phone').type("11999999999");
@@ -31,7 +31,7 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
   })
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
     cy.get("#firstName")
-    .type("João");
+      .type("João");
     cy.get('#lastName').type('Silva', { delay: 100 });
     cy.get('#email').type("fake@email.com");
     cy.get('#phone-checkbox').click();
@@ -41,7 +41,7 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
   })
   it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
     cy.get("#firstName")
-    .type("João").should('have.value', 'João');
+      .type("João").should('have.value', 'João');
     cy.get("#firstName").clear().should('have.value', '');
     cy.get('#lastName').type('Silva', { delay: 100 }).should('have.value', 'Silva');
     cy.get('#lastName').clear().should('have.value', '');
@@ -64,4 +64,31 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
     cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
   })
 
+    it('envia formulario utiliando contains no button', () => {
+
+    cy.contains('button',"Enviar").click();
+    cy.get('.error ').should('be.visible').and('contain', 'Valide os campos obrigatórios!');
+  })
+
+
+   it('seleciona um produto (YouTube) por seu texto', () => {
+
+    cy.get('select')
+      .select('YouTube')
+        .should('have.value', 'youtube')
+  
+  })
+  it('seleciona um produto (Mentoria) por seu valor', () => {
+
+    cy.get('select')
+      .select('mentoria')
+        .should('have.value', 'mentoria')
+  
+  })
+  it.only('seleciona um produto (Blog) por seu índice', () => {
+
+    cy.get('select').select(1)
+        .should('have.value', 'blog')
+  
+  })
 });
