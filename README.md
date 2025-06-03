@@ -1,51 +1,46 @@
-<<<<<<< HEAD
-# 📘 Cypress - Guia Completo
+# Resumo de Cypress - Guia Completo
 
-Este repositório é um **guia completo** para quem deseja aprender Cypress, com exemplos práticos, explicações detalhadas e boas práticas para testes automatizados de front-end.
+## :star: Bloco `describe()`
+Usado para **organizar** os testes, agrupando-os por funcionalidade ou página.
+
+```javascript
+describe('CENTRAL DE ATENDIMENTO AO CLIENTE', () => { ... });
+```
 
 ---
 
-## 🌟 Bloco `describe()`
-
-Utilizado para **organizar** seus testes, agrupando-os por funcionalidade ou página.
+## :round_pushpin: `beforeEach()`
+Executa **antes de cada teste (`it()`)**. Ideal para abrir a página antes de cada teste começar.
 
 ```javascript
-describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
-  // testes aqui
-});
-
-📍 beforeEach()
-Executa antes de cada teste (it()). Ideal para abrir a página antes de cada teste começar.
-
 beforeEach(() => {
   cy.visit('src/index.html');
 });
+```
 
+---
 
-🧪 Tabela de Comandos do Cypress Usados
+## :test_tube: Tabela de Comandos do Cypress usados
 
-| Comando                                         | Descrição                                              | Exemplo                                                                |
-| ----------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------- |
-| `cy.visit()`                                    | Abre a página no navegador.                            | `cy.visit('src/index.html');`                                          |
-| `cy.title().should()`                           | Verifica o título da página.                           | `cy.title().should('eq', 'Central de Atendimento...');`                |
-| `cy.get(seletor).type()`                        | Seleciona um campo e digita algo.                      | `cy.get('#firstName').type('João');`                                   |
-| `cy.get(seletor).type(valor, { delay: tempo })` | Digita simulando um tempo de digitação.                | `cy.get('#lastName').type('Silva', { delay: 100 });`                   |
-| `cy.get(seletor).click()`                       | Clica em um botão ou elemento.                         | `cy.get('button[type="submit"]').click();`                             |
-| `cy.get(seletor).should()`                      | Verifica se o elemento cumpre alguma condição.         | `cy.get('.success').should('be.visible');`                             |
-| `.and('contain', texto)`                        | Complementa a verificação com o conteúdo esperado.     | `.and('contain', 'Mensagem enviada com sucesso.');`                    |
-| `it.only()` / `describe.only()`                 | Executa apenas o(s) teste(s) marcado(s) com `.only`.   | `it.only('teste', () => { ... });`                                     |
-| `it.skip()`                                     | Ignora temporariamente o teste.                        | `it.skip('teste', () => { ... });`                                     |
-| `Cypress.Commands.add()`                        | Cria comandos personalizados para reaproveitar código. | `Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => { ... });` |
+| Comando | O que faz | Exemplo |
+|--------|------------|---------|
+| `cy.visit()` | Abre a página no navegador | `cy.visit('src/index.html');` |
+| `cy.title().should()` | Verifica o título da página | `cy.title().should('eq', 'Central de Atendimento...');` |
+| `cy.get().type()` | Seleciona campo e digita | `cy.get('#firstName').type('João');` |
+| `cy.get().type(valor, { delay: tempo })` | Digita simulando tempo | `cy.get('#lastName').type('Silva', { delay: 100 });` |
+| `cy.get().click()` | Clica em botão/elemento | `cy.get('button[type="submit"]').click();` |
+| `cy.contains(tag, texto)` | Seleciona pelo texto | `cy.contains('button', 'Enviar').click();` |
+| `cy.get().should()` | Verifica condição | `cy.get('.success').should('be.visible');` |
+| `.and('contain', texto)` | Complementa verificação | `.and('contain', 'Mensagem enviada com sucesso.');` |
+| `it.only()` / `describe.only()` | Executa apenas o marcado | `it.only('teste', () => { ... });` |
+| `it.skip()` | Ignora teste | `it.skip('teste', () => { ... });` |
+| `Cypress.Commands.add()` | Cria comando personalizado | `Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => { ... });` |
 
-✨ Criar Funções Personalizadas com Cypress.Commands.add()
-✅ Por que criar funções personalizadas?
-Reutilização de código: mantém os testes mais limpos e organizados.
+---
 
-Ideal para ações repetitivas: como preencher formulários.
+## :sparkles: Funções personalizadas com `Cypress.Commands.add()`
 
-✅ Como fazer:
-No arquivo commands.js:
-
+```javascript
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
   cy.get('#firstName').type('João');
   cy.get('#lastName').type('Silva');
@@ -53,11 +48,31 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
   cy.get('#open-text-area').type('Mensagem de teste');
   cy.get('button[type="submit"]').click();
 });
+```
 
-✅ Como usar no teste:
-No arquivo de teste (spec.js ou ci.js):
+No teste:
 
-// Definindo um comando customizado no commands.js
+```javascript
+it('envia o formulário', () => {
+  cy.fillMandatoryFieldsAndSubmit();
+  cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
+});
+```
+
+---
+
+## :bulb: Exemplo com `cy.contains()`
+
+```javascript
+cy.contains('button', 'Enviar').click();
+cy.get('.error').should('be.visible').and('contain', 'Valide os campos obrigatórios!');
+```
+
+---
+
+## :computer: Exemplo prático completo
+
+```javascript
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
   cy.get('#firstName').type('João');
   cy.get('#lastName').type('Silva', { delay: 100 });
@@ -71,71 +86,27 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
     cy.visit('src/index.html');
   });
 
-  it.only('preenche os campos obrigatórios e envia o formulário', () => {
+  it.only('envia o formulário', () => {
     cy.fillMandatoryFieldsAndSubmit();
     cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
   });
 
-  it.skip('verifica o título da aplicação', () => {
+  it.skip('verifica o título', () => {
     cy.title().should('eq', 'Central de Atendimento ao Cliente TAT');
   });
 });
+```
 
-💻 Exemplo Prático com Todos os Comandos
+---
 
-// Definindo um comando customizado no commands.js
-Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
-  cy.get('#firstName').type('João');
-  cy.get('#lastName').type('Silva', { delay: 100 });
-  cy.get('#email').type('joao@teste.com');
-  cy.get('#open-text-area').type('Mensagem de teste');
-  cy.get('button[type="submit"]').click();
-});
+## :memo: Dicas Finais
+- Use nomes descritivos nos testes
+- Simule digitação real com `{ delay: 100 }`
+- Use `.only` para testes isolados
+- Use `.skip` para ignorar testes temporariamente
+- Combine `cy.get()` com `cy.contains()` se necessário
+- Crie comandos customizados para deixar o código limpo
 
-describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
-  beforeEach(() => {
-    cy.visit('src/index.html');
-  });
+---
 
-  it.only('preenche os campos obrigatórios e envia o formulário', () => {
-    cy.fillMandatoryFieldsAndSubmit();
-    cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
-  });
-
-  it.skip('verifica o título da aplicação', () => {
-    cy.title().should('eq', 'Central de Atendimento ao Cliente TAT');
-  });
-});
-
-
-
-=======
-# 🌲 Cypress, do Zero à Nuvem ☁️
-
-👋 Seja bem-vindo(a)!
-
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
-
-## O que você vai aprender?
-
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
-
-## Vamos começar?
-
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
-
-___
-
-Este é um curso da **Escola Talking About Testing**.
->>>>>>> d563574 (Initial commit)
+Bons estudos e pratique bastante! 🚀
