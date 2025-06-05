@@ -8,7 +8,7 @@ Usado para **organizar** seus testes, agrupando-os por funcionalidade ou página
 
 Exemplo:
 ```javascript
-describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => { ... });
+describe('CENTRAL DE ATENDIMENTO AO CLIENTE', () => { ... });
 ```
 
 
@@ -95,7 +95,7 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
 
 ✅ **Como usar no teste:**
 
-No arquivo de teste (`spec.js` ou `ci.js`):
+No arquivo de teste (`spec.js` ou `cy.js`):
 ```javascript
 it('preenche os campos obrigatórios e envia o formulário', () => {
   cy.fillMandatoryFieldsAndSubmit();
