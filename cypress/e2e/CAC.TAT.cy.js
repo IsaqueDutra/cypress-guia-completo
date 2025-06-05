@@ -34,7 +34,7 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
       .type("João");
     cy.get('#lastName').type('Silva', { delay: 100 });
     cy.get('#email').type("fake@email.com");
-    cy.get('#phone-checkbox').click();
+    cy.get('#phone-checkbox').check();
     cy.get('#open-text-area').type("Mensagem de teste");
     cy.get('button[type="submit"]').click();
     cy.get('.error ').should('be.visible').and('contain', 'Valide os campos obrigatórios!');
@@ -106,5 +106,17 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
       })
   })
 
-})
+  it('marca ambos checkboxes, depois desmarca o último', () => {
+    cy.get('input[type="checkbox"]').check().should('be.checked')
+      .last()
+      .uncheck().should('not.be.checked')
 
+  })
+  it('seleciona um arquivo da pasta fixtures', () => {
+    cy.get('input[type=file]').selectFile('cypress/fixtures/example.json')
+      .should((input) => {
+        console.log(input)
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+})
