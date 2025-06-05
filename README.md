@@ -11,6 +11,7 @@ Exemplo:
 describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => { ... });
 ```
 
+
 ---
 
 ## 📍 `beforeEach()`
@@ -18,11 +19,13 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => { ... });
 Executa **antes de cada teste (`it()`)**. Ideal para abrir a página antes de cada teste começar.
 
 Exemplo:
+
 ```javascript
 beforeEach(() => {
   cy.visit('src/index.html');
 });
 ```
+
 
 ---
 
@@ -79,6 +82,7 @@ cy.get('[type="radio"]')
 ✅ **Como fazer:**
 
 No arquivo `commands.js`:
+
 ```javascript
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
   cy.get('#firstName').type('João');
@@ -140,6 +144,7 @@ cy.get('#select-plataforma').should('have.value', 'youtube');
 
 ```javascript
 // Definindo um comando customizado no commands.js
+
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', () => {
   cy.get('#firstName').type('João');
   cy.get('#lastName').type('Silva', { delay: 100 });
@@ -153,16 +158,17 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
     cy.visit('src/index.html');
   });
 
-  it.only('preenche os campos obrigatórios e envia o formulário', () => {
+  it.only('envia o formulário', () => {
     cy.fillMandatoryFieldsAndSubmit();
     cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
   });
 
-  it.skip('verifica o título da aplicação', () => {
+  it.skip('verifica o título', () => {
     cy.title().should('eq', 'Central de Atendimento ao Cliente TAT');
   });
 });
 ```
+
 
 ✅ **Dicas Finais:**
 - Use nomes descritivos nos testes para entender melhor o que está sendo testado.
@@ -179,3 +185,4 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 ✨ Continue praticando e ajustando seu código no Evernote para transformar em um README.md futuramente!
 
 Bons estudos! 🚀📚
+
