@@ -64,31 +64,47 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
     cy.get('.success').should('be.visible').and('contain', 'Mensagem enviada com sucesso.');
   })
 
-    it('envia formulario utiliando contains no button', () => {
+  it('envia formulario utiliando contains no button', () => {
 
-    cy.contains('button',"Enviar").click();
+    cy.contains('button', "Enviar").click();
     cy.get('.error ').should('be.visible').and('contain', 'Valide os campos obrigatórios!');
   })
 
 
-   it('seleciona um produto (YouTube) por seu texto', () => {
+  it('seleciona um produto (YouTube) por seu texto', () => {
 
     cy.get('select')
       .select('YouTube')
-        .should('have.value', 'youtube')
-  
+      .should('have.value', 'youtube')
+
   })
   it('seleciona um produto (Mentoria) por seu valor', () => {
 
     cy.get('select')
       .select('mentoria')
-        .should('have.value', 'mentoria')
-  
+      .should('have.value', 'mentoria')
+
   })
-  it.only('seleciona um produto (Blog) por seu índice', () => {
+  it('seleciona um produto (Blog) por seu índice', () => {
 
     cy.get('select').select(1)
-        .should('have.value', 'blog')
-  
+      .should('have.value', 'blog')
+
   })
-});
+
+  it('marca o tipo de atendimento "Feedback"', () => {
+    cy.get('[type="radio"]').check('feedback')
+      .should('be.checked')
+
+  })
+
+  it('marca cada tipo de atendimento', () => {
+    cy.get('[type="radio"]')
+      .should('have.length', 3)
+      .each((radio) => {
+        cy.wrap(radio).check().should('be.checked')
+      })
+  })
+
+})
+
