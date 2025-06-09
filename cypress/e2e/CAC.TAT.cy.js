@@ -121,15 +121,18 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
       })
   })
 
-  it.only('verifica que o link da política de privacidade possui target="_blank"', () => {
+  it('verifica que o link da política de privacidade possui target="_blank"', () => {
     cy.get('#privacy a').should('have.attr', 'target', '_blank')
   })
 
-  it.only('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+  it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
     cy.get('#privacy a')
     .invoke('removeAttr', 'target')
     .click()
     cy.get('#title').should('contain', 'CAC TAT - Política de Privacidade')
   })
+
+
+
 })
 

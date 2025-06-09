@@ -1,7 +1,7 @@
 {
-  "name": "cypress-do-zero-a-nuvem",
+  "name": "cypress-guia-completo",
   "version": "1.0.0",
-  "description": "Curso 'Cypress, do Zero à Nuvem' da Escola Talking About Testing.",
+  "description": "Guia completo de Cypress para testes automatizados",
   "main": "src/index.html",
   "scripts": {
      "cy:open": "cypress open",
@@ -10,20 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wlsf82/cypress-do-zero-a-nuvem.git"
+    "url": "git+https://github.com/IsaqueDutra/cypress-guia-completo"
   },
   "keywords": [
     "Testing",
-    "Cypress.io",
-    "Talking About Testing",
-    "Cypress, do Zero à Nuvem",
-    "Cypress Cloud",
-    "GitHub Actions",
-    "Escola TAT"
+    "Cypress.io"
   ],
-  "author": "Walmyr <wlsf82@gmail.com> (https://walmyr.dev/)",
+  "author": "ISAQUE DUTRA",
   "license": "MIT",
-  "homepage": "https://github.com/wlsf82/cypress-do-zero-a-nuvem#readme",
+  "homepage": "https://github.com/IsaqueDutra/cypress-do-zero-a-nuvem#readme",
   "devDependencies": {
     "cypress": "^13.12.0"
   }
