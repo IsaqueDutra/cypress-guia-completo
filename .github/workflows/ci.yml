@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+      - 'feature/*'
+      - 'fix/*'
+      - 'hotfix/*'
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
 
 jobs:
   cypress-run:
@@ -11,6 +19,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install

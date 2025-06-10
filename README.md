@@ -146,3 +146,6 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 
 ---
 Bons Estudos!
+
+echo "// hotfix de login" >> hotfix.txt
+
