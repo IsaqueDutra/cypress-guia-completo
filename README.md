@@ -145,7 +145,5 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 - Use `.invoke('removeAttr')` para testar links externos
 
 ---
-Bons Estudos!
-
-echo "// hotfix de login" >> hotfix.txt
+Bons Estudos!!!
 
