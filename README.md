@@ -146,3 +146,4 @@ describe('CENTRAL DE ATENDIMENTO AO CLIENTE TAT', () => {
 
 ---
 Bons Estudos!
+echo "Testando CI com Git Flow" >> README.md
